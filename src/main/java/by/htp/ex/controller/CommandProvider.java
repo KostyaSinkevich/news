@@ -20,6 +20,7 @@ public class CommandProvider {
         commands.put(CommandName.GO_TO_EDIT_NEWS, new GoToEditNews());
         commands.put(CommandName.ADD_NEWS, new AddNews());
         commands.put(CommandName.GO_TO_ADD_NEWS, new GoToAddNews());
+        commands.put(CommandName.CHANGE_LOCALE, new ChangeLocale());
     }
 
 

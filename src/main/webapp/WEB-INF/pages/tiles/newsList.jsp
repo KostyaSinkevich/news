@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="locale.jsp"%>
 
 <div class="body-title">
-    <a href="">News >> </a> News List
+    <a href="">${newses} >> </a> ${news_list}
 </div>
 
 <form action="controller?command=delete_news" method="post">
@@ -21,10 +22,10 @@
                 <div class="news-link-to-wrapper">
                     <div class="link-position">
                         <c:if test="${sessionScope.role eq 'admin'}">
-                            <a href="controller?command=go_to_edit_news&id=${news.idNews}">edit </a>
+                            <a href="controller?command=go_to_edit_news&id=${news.idNews}">${edit} </a>
                         </c:if>
 
-                        <a href="controller?command=go_to_view_news&id=${news.idNews}">view </a>
+                        <a href="controller?command=go_to_view_news&id=${news.idNews}">${view} </a>
 
                         <c:if test="${sessionScope.role eq 'admin'}">
                             <input type="checkbox" name="id" value="${news.idNews}"/>
@@ -38,7 +39,7 @@
     <div class="single-news-wrapper">
         <div class="link-position">
             <c:if test="${sessionScope.role eq 'admin'}">
-                <input type="submit" name="delete" value="Delete"/>
+                <input type="submit" name="delete" value="${delete}"/>
             </c:if>
         </div>
     </div>

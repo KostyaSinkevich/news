@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="locale.jsp"%>
 
 <div class="wrapper">
     <div class="newstitle">
@@ -6,8 +7,8 @@
     </div>
     <div class="local-link">
         <div align="right">
-            <a href=""> en </a> &nbsp;&nbsp;
-            <a href=""> ru </a> <br/> <br/>
+            <a href="controller?command=change_locale&locale=en"> ${en} </a> &nbsp;&nbsp;
+            <a href="controller?command=change_locale&locale=ru"> ${ru} </a> <br/> <br/>
         </div>
 
         <c:if test="${not (sessionScope.user eq 'active')}">
@@ -15,8 +16,8 @@
             <div align="right">
                 <form action="controller" method="post">
                     <input type="hidden" name="command" value="do_sign_in"/>
-                    Enter login: <input type="text" name="login" value=""/><br/>
-                    Enter password: <input type="password" name="password" value=""/><br/>
+                    ${login}: <input type="text" name="login" value=""/><br/>
+                    ${password}: <input type="password" name="password" value=""/><br/>
 
                     <c:if test="${not (requestScope.AuthenticationError eq null)}">
                         <font color="red">
@@ -24,7 +25,7 @@
                         </font>
                     </c:if>
 
-                    <a href="">Registration</a> <input type="submit" value="Sign In"/><br/>
+                    <a href="">${registration}</a> <input type="submit" value="${sign_in}"/><br/>
                 </form>
             </div>
 
@@ -35,7 +36,7 @@
             <div align="right">
                 <form action="controller" method="post">
                     <input type="hidden" name="command" value="do_sign_out"/>
-                    <input type="submit" value="Sign Out"/><br/>
+                    <input type="submit" value="${sign_out}"/><br/>
                 </form>
             </div>
         </c:if>
