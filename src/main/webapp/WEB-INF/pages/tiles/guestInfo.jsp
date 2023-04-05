@@ -14,7 +14,6 @@
                 <div class="news-date">
                     <c:out value="${news.newsDate}"/>
                 </div>
-
                 <div class="news-content">
                     <c:out value="${news.briefNews}"/>
                 </div>

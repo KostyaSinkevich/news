@@ -11,6 +11,7 @@ import by.htp.ex.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class GoToBasePage implements Command {
 
@@ -19,11 +20,13 @@ public class GoToBasePage implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession(true);
+
         List<News> latestNews;
         try {
             latestNews = newsService.latestList(5);
             request.setAttribute("news", latestNews);
-            request.setAttribute("guest", "active");
+            session.setAttribute("guest", "not active");
 
             request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
         } catch (ServiceException e) {

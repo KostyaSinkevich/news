@@ -23,8 +23,9 @@
                         <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
                             <a href="controller?command=go_to_edit_news&id=${news.idNews}">${edit} </a>
                         </c:if>
-
+                        <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor' || sessionScope.role eq 'user'}">
                         <a href="controller?command=go_to_view_news&id=${news.idNews}">${view} </a>
+                        </c:if>
                         <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
                             <input type="checkbox" name="id" value="${news.idNews}"/>
                         </c:if>
