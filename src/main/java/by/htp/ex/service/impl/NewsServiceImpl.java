@@ -8,34 +8,42 @@ import by.htp.ex.dao.INewsDAO;
 import by.htp.ex.dao.NewsDAOException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
+import by.htp.ex.util.validation.ValidationException;
+import by.htp.ex.util.validation.impl.NewsValidationImpl;
 
 public class NewsServiceImpl implements INewsService {
 
     private final INewsDAO newsDAO = DaoProvider.getInstance().getNewsDAO();
 
     @Override
-    public void save() {
-        // TODO Auto-generated method stub
-    }
+    public void addNews(String title, String newsDate, String newsBrief, String newsContent, int usersId) throws ServiceException, ValidationException {
 
-    @Override
-    public void find() {
-        // TODO Auto-generated method stub
-    }
+        NewsValidationImpl.NewsValidationBuilder builder = new NewsValidationImpl.NewsValidationBuilder();
+        NewsValidationImpl newsValidation = builder.checkTitle(title).checkBrief(newsBrief).checkContent(newsContent).validateAll();
 
-    @Override
-    public void addNews(String title, String newsDate, String newsBrief, String newsContent) throws ServiceException {
+        if (!newsValidation.getErrors().isEmpty()) {
+            throw new ValidationException(newsValidation.errorMessage());
+        }
+
         try {
-            newsDAO.addNews(title, newsDate, newsBrief, newsContent);
+            newsDAO.addNews(title, newsDate, newsBrief, newsContent, usersId);
         } catch (NewsDAOException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public News update(int id, String title, String newsDate, String newsBrief, String newsContent) throws ServiceException {
+    public void update(int id, String title, String newsDate, String newsBrief, String newsContent) throws ServiceException, ValidationException {
+
+        NewsValidationImpl.NewsValidationBuilder builder = new NewsValidationImpl.NewsValidationBuilder();
+        NewsValidationImpl newsValidation = builder.checkTitle(title).checkBrief(newsBrief).checkContent(newsContent).validateAll();
+
+        if (!newsValidation.getErrors().isEmpty()) {
+            throw new ValidationException(newsValidation.errorMessage());
+        }
+
         try {
-            return newsDAO.updateNews(id, title, newsDate, newsBrief, newsContent);
+            newsDAO.updateNews(id, title, newsDate, newsBrief, newsContent);
         } catch (NewsDAOException e) {
             throw new ServiceException(e);
         }

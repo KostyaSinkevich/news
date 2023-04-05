@@ -1,6 +1,7 @@
 package by.htp.ex.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class News implements Serializable {
@@ -12,14 +13,16 @@ public class News implements Serializable {
     private String briefNews;
     private String content;
     private String newsDate;
+    private boolean status;
 
-    public News(int idNews, String title, String briefNews, String content, String newsDate) {
+    public News(int idNews, String title, String newsDate, String briefNews, String content) {
         super();
         this.idNews = idNews;
         this.title = title;
+        this.newsDate = newsDate;
         this.briefNews = briefNews;
         this.content = content;
-        this.newsDate = newsDate;
+        this.status = true;
     }
 
     public Integer getIdNews() {
@@ -62,7 +65,15 @@ public class News implements Serializable {
         this.newsDate = newsDate;
     }
 
-	@Override
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

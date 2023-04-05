@@ -37,9 +37,14 @@
         <div class="content">
 
             <c:if test="${not (sessionScope.user eq 'active')}">
-                <c:import url="/WEB-INF/pages/tiles/guestInfo.jsp"/>
+                <c:if test="${not (sessionScope.guest eq 'active')}">
+                    <c:import url="/WEB-INF/pages/tiles/guestInfo.jsp"/>
+                </c:if>
             </c:if>
             <c:if test="${sessionScope.user eq 'active'}">
+                <c:import url="/WEB-INF/pages/tiles/body.jsp"/>
+            </c:if>
+            <c:if test="${sessionScope.guest eq 'active'}">
                 <c:import url="/WEB-INF/pages/tiles/body.jsp"/>
             </c:if>
 

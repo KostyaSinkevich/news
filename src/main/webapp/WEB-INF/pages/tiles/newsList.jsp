@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@include file="locale.jsp"%>
+<%@include file="locale.jsp" %>
 
 <div class="body-title">
-    <a href="">${newses} >> </a> ${news_list}
+    <a href="controller?command=go_to_news_list">${newses} >> </a> ${news_list}
 </div>
 
 <form action="controller?command=delete_news" method="post">
@@ -15,19 +15,17 @@
                 <div class="news-date">
                     <c:out value="${news.newsDate}"/>
                 </div>
-
                 <div class="news-content">
                     <c:out value="${news.briefNews}"/>
                 </div>
                 <div class="news-link-to-wrapper">
                     <div class="link-position">
-                        <c:if test="${sessionScope.role eq 'admin'}">
+                        <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
                             <a href="controller?command=go_to_edit_news&id=${news.idNews}">${edit} </a>
                         </c:if>
 
                         <a href="controller?command=go_to_view_news&id=${news.idNews}">${view} </a>
-
-                        <c:if test="${sessionScope.role eq 'admin'}">
+                        <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
                             <input type="checkbox" name="id" value="${news.idNews}"/>
                         </c:if>
                     </div>
@@ -38,19 +36,11 @@
     </c:forEach>
     <div class="single-news-wrapper">
         <div class="link-position">
-            <c:if test="${sessionScope.role eq 'admin'}">
+            <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
                 <input type="submit" name="delete" value="${delete}"/>
             </c:if>
         </div>
     </div>
-
-    <!-- 	<logic:notEmpty name="newsForm" property="newsList">
-		<div class="delete-button-position">
-			<html:submit>
-				<bean:message key="locale.newslink.deletebutton" />
-			</html:submit>
-		</div>
-	</logic:notEmpty> -->
 
     <div class="no-news">
         <c:if test="${requestScope.news eq null}">

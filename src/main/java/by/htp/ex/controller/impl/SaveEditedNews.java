@@ -5,6 +5,7 @@ import by.htp.ex.controller.Command;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
+import by.htp.ex.util.validation.ValidationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,14 +26,14 @@ public class SaveEditedNews implements Command {
 
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            News news = newsService.update(id, request.getParameter(NEWS_TITLE), request.getParameter(NEWS_DATE),
+            newsService.update(id, request.getParameter(NEWS_TITLE), request.getParameter(NEWS_DATE),
                     request.getParameter(NEWS_BRIEF), request.getParameter(NEWS_CONTENT));
-
+            News news = newsService.findById(id);
             request.setAttribute("news", news);
 
-            response.sendRedirect("controller?command=go_to_view_news");
-        } catch (ServiceException e) {
-            e.printStackTrace();
+            response.sendRedirect("controller?command=go_to_view_news&id=" + id);
+        } catch (ServiceException | ValidationException e) {
+            response.sendRedirect("controller?command=go_to_error_page");
         }
     }
 }

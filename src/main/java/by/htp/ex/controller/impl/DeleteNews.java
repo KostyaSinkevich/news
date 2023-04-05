@@ -22,8 +22,7 @@ public class DeleteNews implements Command {
 
             response.sendRedirect("controller?command=go_to_news_list");
         } catch (ServiceException e) {
-            // TODO
-            e.printStackTrace();
+            response.sendRedirect("controller?command=go_to_error_page");
         }
     }
 }

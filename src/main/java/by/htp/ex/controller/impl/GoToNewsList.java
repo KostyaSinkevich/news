@@ -24,12 +24,10 @@ public class GoToNewsList implements Command {
             newsList = newsService.list();
             request.setAttribute("news", newsList);
             request.setAttribute("presentation", "newsList");
-            //request.setAttribute("news", null);
 
             request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
         } catch (ServiceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            response.sendRedirect("controller?command=go_to_error_page");
         }
     }
 }

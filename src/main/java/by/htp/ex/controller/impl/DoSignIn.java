@@ -7,10 +7,11 @@ import by.htp.ex.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-public class DoSIgnIn implements Command {
+public class DoSignIn implements Command {
 
     private final IUserService service = ServiceProvider.getInstance().getUserService();
 
@@ -19,36 +20,33 @@ public class DoSIgnIn implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession(true);
+
         String login;
         String password;
 
         login = request.getParameter(JSP_LOGIN_PARAM);
         password = request.getParameter(JSP_PASSWORD_PARAM);
 
-        // small validation
-
         try {
 
             String role = service.signIn(login, password);
 
             if (!role.equals("guest")) {
-                request.getSession(true).setAttribute("user", "active");
-                request.getSession(true).setAttribute("role", role);
+                session.setAttribute("user", "active");
+                session.setAttribute("guest", "not active");
+                session.setAttribute("usersId", service.getUsersId(login, password));
+                session.setAttribute("role", role);
                 response.sendRedirect("controller?command=go_to_news_list");
             } else {
-                request.getSession(true).setAttribute("user", "not active");
-                request.setAttribute("AuthenticationError", "wrong login or password");
-                request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+                session.setAttribute("user", "not active");
+                session.setAttribute("authenticationError", "wrong login or password");
+                response.sendRedirect("controller?command=go_to_base_page");
             }
 
         } catch (ServiceException e) {
-            // logging e
-            // go-to error page
-
+            response.sendRedirect("controller?command=go_to_error_page");
         }
-
-        // response.getWriter().print("do logination");
-
     }
-
 }

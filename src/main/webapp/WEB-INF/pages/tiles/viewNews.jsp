@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="body-title">
-    <a href="">News >> </a> View News
+    <a href="controller?command=go_to_news_list">News >> </a> View News
 </div>
 
 <div class="add-table-margin">
@@ -43,7 +43,7 @@
     </table>
 </div>
 
-<c:if test="${sessionScope.role eq 'admin'}">
+<c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
     <div class="first-view-button">
         <form action="controller" method="post">
             <input type="hidden" name="command" value="go_to_edit_news"/>

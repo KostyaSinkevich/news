@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="body-title">
-    <a href="">News >> </a> Edit News
+    <a href="controller?command=go_to_news_list">News >> </a> Edit News
 </div>
 
 <form action="controller" method="post">
@@ -19,7 +19,7 @@
                 <td class="space_around_title_text">News Date</td>
                 <td class="space_around_view_text">
                     <div class="word-breaker">
-                        <input type="text" name="date" placeholder="Enter the date">
+                        <input type="date" name="date" value="${requestScope.news.newsDate}">
                     </div>
                 </td>
             </tr>

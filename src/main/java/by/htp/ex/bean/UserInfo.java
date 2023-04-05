@@ -10,13 +10,18 @@ public class UserInfo implements Serializable {
 	private String login;
 	private String password;
 	private String name;
+	private String surname;
 	private String email;
+	private String birthday;
 
-	public UserInfo(String login, String password, String name, String email) {
+
+	public UserInfo(String login, String password, String name, String surname, String email, String birthday) {
 		this.login = login;
 		this.password = password;
 		this.name = name;
+		this.surname = surname;
 		this.email = email;
+		this.birthday = birthday;
 	}
 
 	public String getLogin() {
@@ -43,12 +48,28 @@ public class UserInfo implements Serializable {
 		this.name = name;
 	}
 
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
 	@Override

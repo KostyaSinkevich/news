@@ -1,9 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-guest info
-
 <div class="body-title">
-    <a href="">News >> </a> Latest News
+    <a href="controller?command=go_to_news_list">News >> </a> Latest News
 </div>
 
 <form action="command.do?method=delete" method="post">

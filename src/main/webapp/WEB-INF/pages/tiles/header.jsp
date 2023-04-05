@@ -19,13 +19,14 @@
                     ${login}: <input type="text" name="login" value=""/><br/>
                     ${password}: <input type="password" name="password" value=""/><br/>
 
-                    <c:if test="${not (requestScope.AuthenticationError eq null)}">
+                    <c:if test="${not (sessionScope.authenticationError eq null)}">
                         <font color="red">
-                            <c:out value="${requestScope.AuthenticationError}"/>
+                            <c:out value="${sessionScope.authenticationError}"/>
+                            <c:remove var="authenticationError"/>
                         </font>
                     </c:if>
 
-                    <a href="">${registration}</a> <input type="submit" value="${sign_in}"/><br/>
+                    <a href="controller?command=do_sign_in">${registration}</a> <input type="submit" value="${sign_in}"/><br/>
                 </form>
             </div>
 
